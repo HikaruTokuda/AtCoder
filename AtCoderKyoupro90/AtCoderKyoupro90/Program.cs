@@ -6,7 +6,9 @@ namespace AtCoderKyoupro90
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var current = new yokanparty();
+            current.Run();
+            Console.ReadKey();
         }
     }
 }
