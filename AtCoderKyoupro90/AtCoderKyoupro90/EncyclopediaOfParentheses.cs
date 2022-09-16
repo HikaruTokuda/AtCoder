@@ -49,5 +49,45 @@ namespace AtCoderKyoupro90
 
             }
         }
+
+        public void Run_kousiki()
+        {
+            int N = int.Parse(Console.ReadLine());
+            // 2進数を左にSビット論理シフトすると、2^S倍することに相当
+            // http://kccn.konan-u.ac.jp/information/cs/cyber03/cy3_shc.htm
+            for (int i = 0; i < (1 << N); i++)
+            {
+                string candidate = "";
+                for(int j = N-1; j >= 0; j--)
+                {
+                    // (i & (1 << j)) == 0 というのは、i の j ビット目（2^j の位）が 0 であるための条件
+                    // 0を「(」、1を「)」としている
+                    if ((i & (1 << j)) == 0)
+                    {
+                        candidate += "(";
+                    }
+                    else
+                    {
+                        candidate += ")";
+                    }
+                }
+                bool I = hantei(candidate);
+                if (I) Console.WriteLine(candidate);                
+            }
+        }
+
+        bool hantei(string S)
+        {
+            int dep = 0;
+            for(int i = 0; i < S.Length; i++)
+            {
+                if (S.Substring(i, 1) == "(") dep++;
+                if (S.Substring(i, 1) == ")") dep--;
+                // 「)」が「(」より多くなったとき
+                if (dep < 0) return false;
+            }
+            // 「(」と「)」が同数なら真
+            return dep == 0;
+        }
     }
 }

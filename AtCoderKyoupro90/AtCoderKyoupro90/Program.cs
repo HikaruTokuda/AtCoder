@@ -7,7 +7,7 @@ namespace AtCoderKyoupro90
         static void Main(string[] args)
         {
             var current = new EncyclopediaOfParentheses();
-            current.Run();
+            current.Run_kousiki();
             Console.ReadKey();
         }
     }
