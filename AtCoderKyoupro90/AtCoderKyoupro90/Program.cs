@@ -6,7 +6,7 @@ namespace AtCoderKyoupro90
     {
         static void Main(string[] args)
         {
-            var current = new yokanparty();
+            var current = new EncyclopediaOfParentheses();
             current.Run();
             Console.ReadKey();
         }
