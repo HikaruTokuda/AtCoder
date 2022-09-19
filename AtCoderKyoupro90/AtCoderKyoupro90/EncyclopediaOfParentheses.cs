@@ -138,14 +138,15 @@ namespace AtCoderKyoupro90
                 }
 		    }
 
-            var startVertex = vartexes.Where( vr => vr.vertex == s ).ToList()[0];
-
-            foreach(var dest in startVertex.destinations)
-            {
-
-            }
+            var startVertex = vartexes.Where( vr => vr.vertex == s ).ToList()[0];            
 
 	    }
+
+        int GetNextVertex(List<VertexModel> vartexes, int start)
+        {
+            var nexts = vartexes.Where(vr => vr.vertex == start).ToList();
+            return nexts.Count;
+        }
     }
 
     public class VertexModel
