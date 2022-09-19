@@ -89,5 +89,68 @@ namespace AtCoderKyoupro90
             // 「(」と「)」が同数なら真
             return dep == 0;
         }
+
+        public void RunDFS()
+        {
+            var VE = Console.ReadLine().Split(' ');
+            var V = int.Parse(VE[0]);
+            var E = int.Parse(VE[1]);
+            var st = Console.ReadLine().Split(' ');
+            var s = int.Parse(st[0]);
+            var t = int.Parse(st[1]);
+            List<VertexModel> vartexes = new List<VertexModel>();
+
+            for (int i = 0; i < E; i++)
+            {
+                var startend = Console.ReadLine().Split(' ');
+                var start = int.Parse(startend[0]);
+                var end = int.Parse(startend[1]);
+
+                bool added = false;
+                foreach (var vertex in vartexes)
+                {
+                    if (vertex.vertex == start)
+                    {
+                        // 既存の頂点
+                        vertex.destinations.Add(end);
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    // 新規の頂点
+                    vartexes.Add(new VertexModel
+                    {
+                        vertex = start,
+                        destinations = new List<int>() { end }
+                    });
+                }
+
+            }
+		
+		    foreach(var vartex in vartexes)
+		    {
+                Console.WriteLine($"vartex: {vartex.vertex}");
+                Console.WriteLine("destinations:");
+                foreach (var dist in vartex.destinations)
+                {
+                    Console.WriteLine(dist);
+                }
+		    }
+
+            var startVertex = vartexes.Where( vr => vr.vertex == s ).ToList()[0];
+
+            foreach(var dest in startVertex.destinations)
+            {
+
+            }
+
+	    }
+    }
+
+    public class VertexModel
+    {
+        public int vertex;
+        public List<int> destinations = new List<int>();
     }
 }
