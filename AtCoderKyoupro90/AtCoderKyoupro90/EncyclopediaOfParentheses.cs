@@ -8,6 +8,8 @@ namespace AtCoderKyoupro90
 {
     class EncyclopediaOfParentheses
     {
+        List<VertexModel> vartexes = new List<VertexModel>();
+        List<PathModel> pathModels = new List<PathModel>();
         public void Run()
         {
             var N = int.Parse(Console.ReadLine());
@@ -35,7 +37,7 @@ namespace AtCoderKyoupro90
                     if (ch == '0') zeroNum++;
                     else oneNum++;
 
-                    if(oneNum > zeroNum)
+                    if (oneNum > zeroNum)
                     {
                         isContinue = false;
                         break;
@@ -58,7 +60,7 @@ namespace AtCoderKyoupro90
             for (int i = 0; i < (1 << N); i++)
             {
                 string candidate = "";
-                for(int j = N-1; j >= 0; j--)
+                for (int j = N - 1; j >= 0; j--)
                 {
                     // (i & (1 << j)) == 0 というのは、i の j ビット目（2^j の位）が 0 であるための条件
                     // 0を「(」、1を「)」としている
@@ -72,14 +74,14 @@ namespace AtCoderKyoupro90
                     }
                 }
                 bool I = hantei(candidate);
-                if (I) Console.WriteLine(candidate);                
+                if (I) Console.WriteLine(candidate);
             }
         }
 
         bool hantei(string S)
         {
             int dep = 0;
-            for(int i = 0; i < S.Length; i++)
+            for (int i = 0; i < S.Length; i++)
             {
                 if (S.Substring(i, 1) == "(") dep++;
                 if (S.Substring(i, 1) == ")") dep--;
@@ -98,7 +100,6 @@ namespace AtCoderKyoupro90
             var st = Console.ReadLine().Split(' ');
             var s = int.Parse(st[0]);
             var t = int.Parse(st[1]);
-            List<VertexModel> vartexes = new List<VertexModel>();
 
             for (int i = 0; i < E; i++)
             {
@@ -127,26 +128,51 @@ namespace AtCoderKyoupro90
                 }
 
             }
-		
-		    foreach(var vartex in vartexes)
-		    {
+
+            foreach (var vartex in vartexes)
+            {
                 Console.WriteLine($"vartex: {vartex.vertex}");
                 Console.WriteLine("destinations:");
                 foreach (var dist in vartex.destinations)
                 {
                     Console.WriteLine(dist);
                 }
-		    }
+            }
+            PathModel currentPath = new PathModel();
+            currentPath.start = s;
+            CreatePathModel(s, s, currentPath);
 
-            var startVertex = vartexes.Where( vr => vr.vertex == s ).ToList()[0];            
-
-	    }
-
-        int GetNextVertex(List<VertexModel> vartexes, int start)
-        {
-            var nexts = vartexes.Where(vr => vr.vertex == start).ToList();
-            return nexts.Count;
         }
+
+        void CreatePathModel(int s, int firstStart, PathModel currentPath)
+        {
+            var startVertexes = vartexes.Where(vr => vr.vertex == s).ToList();
+            if (startVertexes.Count == 0)
+            {
+                pathModels.Add(currentPath);
+                return;
+            } 
+            var startVertex = startVertexes[0];
+            if (startVertex.destinations.Count == 0)
+            {
+                return;
+            }
+            //pathModel.path.AddRange(startVertex.destinations);
+            foreach (var path in startVertex.destinations)
+            {
+                if (!currentPath.path.Contains(path)) currentPath.path.Add(path);
+                
+                CreatePathModel(path, firstStart, currentPath);
+                var newCurrentPath = new PathModel { start = firstStart };
+                currentPath = newCurrentPath;
+            }
+        }
+    }
+
+    public class PathModel
+    {
+        public int start;
+        public List<int> path = new List<int>();
     }
 
     public class VertexModel
