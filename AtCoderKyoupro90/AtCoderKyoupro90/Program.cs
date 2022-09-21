@@ -6,8 +6,8 @@ namespace AtCoderKyoupro90
     {
         static void Main(string[] args)
         {
-            var current = new EncyclopediaOfParentheses();
-            current.RunDFS();
+            var current = new LongestCircularRoad();
+            current.RunKinoTyokkei();
             Console.ReadKey();
         }
     }

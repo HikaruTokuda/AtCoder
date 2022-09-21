@@ -8,8 +8,6 @@ namespace AtCoderKyoupro90
 {
     class EncyclopediaOfParentheses
     {
-        List<VertexModel> vartexes = new List<VertexModel>();
-        List<PathModel> pathModels = new List<PathModel>();
         public void Run()
         {
             var N = int.Parse(Console.ReadLine());
@@ -91,93 +89,5 @@ namespace AtCoderKyoupro90
             // 「(」と「)」が同数なら真
             return dep == 0;
         }
-
-        public void RunDFS()
-        {
-            var VE = Console.ReadLine().Split(' ');
-            var V = int.Parse(VE[0]);
-            var E = int.Parse(VE[1]);
-            var st = Console.ReadLine().Split(' ');
-            var s = int.Parse(st[0]);
-            var t = int.Parse(st[1]);
-
-            for (int i = 0; i < E; i++)
-            {
-                var startend = Console.ReadLine().Split(' ');
-                var start = int.Parse(startend[0]);
-                var end = int.Parse(startend[1]);
-
-                bool added = false;
-                foreach (var vertex in vartexes)
-                {
-                    if (vertex.vertex == start)
-                    {
-                        // 既存の頂点
-                        vertex.destinations.Add(end);
-                        added = true;
-                    }
-                }
-                if (!added)
-                {
-                    // 新規の頂点
-                    vartexes.Add(new VertexModel
-                    {
-                        vertex = start,
-                        destinations = new List<int>() { end }
-                    });
-                }
-
-            }
-
-            foreach (var vartex in vartexes)
-            {
-                Console.WriteLine($"vartex: {vartex.vertex}");
-                Console.WriteLine("destinations:");
-                foreach (var dist in vartex.destinations)
-                {
-                    Console.WriteLine(dist);
-                }
-            }
-            PathModel currentPath = new PathModel();
-            currentPath.start = s;
-            CreatePathModel(s, s, currentPath);
-
-        }
-
-        void CreatePathModel(int s, int firstStart, PathModel currentPath)
-        {
-            var startVertexes = vartexes.Where(vr => vr.vertex == s).ToList();
-            if (startVertexes.Count == 0)
-            {
-                pathModels.Add(currentPath);
-                return;
-            } 
-            var startVertex = startVertexes[0];
-            if (startVertex.destinations.Count == 0)
-            {
-                return;
-            }
-            //pathModel.path.AddRange(startVertex.destinations);
-            foreach (var path in startVertex.destinations)
-            {
-                if (!currentPath.path.Contains(path)) currentPath.path.Add(path);
-                
-                CreatePathModel(path, firstStart, currentPath);
-                var newCurrentPath = new PathModel { start = firstStart };
-                currentPath = newCurrentPath;
-            }
-        }
-    }
-
-    public class PathModel
-    {
-        public int start;
-        public List<int> path = new List<int>();
-    }
-
-    public class VertexModel
-    {
-        public int vertex;
-        public List<int> destinations = new List<int>();
     }
 }
