@@ -34,36 +34,26 @@ void getdist(int start) {
 
 int main()
 {
-    int V, E;
-    cin >> V >> E;
-    int s, t;
-    cin >> s >> t;
-    vector<vector<int>> G(V);
-    for (int i = 0; i < E; i++) {
-        int a, b;
-        cin >> a >> b;
-        G[a].push_back({ b });
-        // G[b].push_back({a});
+    int N;
+    cin >> N;
+    vector<int> X(N), L(N);
+    for (int i = 0; i < N; i++) {
+        cin >> X.at(i) >> L.at(i);
     }
-    vector<bool> seen(V, false);  // 既に見たことがある頂点か記録する
-    queue<int> que;
-    que.emplace(s);  // sから探索する
-    seen[s] = true;
-    while (que.size() != 0) {     // 幅優先探索
-        int state = que.front();  // 現在の状態
-        que.pop();
-        for (auto next : G[state]) {
-            if (!seen[next]) {  // 未探索の時のみ行う
-                seen[next] = true;
-                que.emplace(next);  //次の状態をqueueへ格納
-            }
+    vector<pair<int, int>> p(N);
+    for (int i = 0; i < N; i++) {
+        p[i].first = X[i] + L[i]; // 終端を先に入れておく
+        p[i].second = X[i] - L[i];
+    }
+    sort(p.begin(), p.end()); // 終端を優先にソート
+    int ans = 1;
+    int t = p[0].first; // t:=現在までに選択した区間の中で一番後ろの点
+    for (int i = 1; i < N; i++) {
+        if (t <= p[i].second) {
+            ans++;
+            t = p[i].first;
         }
     }
-    if (seen[t]) {
-        cout << "yes" << endl;
-    }
-    else {
-        cout << "no" << endl;
-    }
+    cout << ans << endl;
     return 0;
 }
