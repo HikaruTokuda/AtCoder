@@ -9,7 +9,6 @@ namespace AtCoderKyoupro90
     class ABC049C_Daydream
     {
 
-
         public void RunGreedy2()
         {
             var N = int.Parse(Console.ReadLine());
@@ -126,6 +125,78 @@ namespace AtCoderKyoupro90
             {
                 Console.WriteLine("no");
             }
+        }
+
+        public void RunOtoshidama()
+        {
+            int N = int.Parse(Console.ReadLine());
+            int Y = int.Parse(Console.ReadLine());
+            bool matched = false;
+
+            for(int i = 0; i <= N; i++)
+            {
+                for(int j = 0; j <= N - i; j++)
+                {
+                    if( (10000 * i) + (5000 * j) + (1000 * (N - i - j)) == Y )
+                    {
+                        matched = true;
+                        Console.WriteLine($"{i}, {j}, {N - i - j}");
+                    }
+                }
+            }
+
+            if (!matched) Console.WriteLine("-1 -1 -1");
+
+        }
+
+        public void RunKagamimochi()
+        {
+            /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /*   X 段重ねの鏡餅 (X≥1) とは、X 枚の円形の餅を縦に積み重ねたものであって、                                                    //
+            /*   どの餅もその真下の餅より直径が小さい（一番下の餅を除く）もののことです。                                                   //
+            /*   例えば、直径 10、8、6 センチメートルの餅をこの順に下から積み重ねると 3 段重ねの鏡餅になり、                                //
+            /*   餅を一枚だけ置くと 1 段重ねの鏡餅になります。                                                                              //
+            /*   ダックスフンドのルンルンは N 枚の円形の餅を持っていて、                                                                    //
+            /*   そのうち i 枚目の餅の直径は di センチメートルです。                                                                        //
+            /*   これらの餅のうち一部または全部を使って鏡餅を作るとき、最大で何段重ねの鏡餅を作ることができるでしょうか。                   //
+            /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            int N = int.Parse(Console.ReadLine());
+            List<int> ds = new List<int>();
+            for(int i = 0; i < N; i++)
+            {
+                ds.Add(int.Parse(Console.ReadLine()));
+            }
+
+            var distinctedDs = ds.Distinct();
+            Console.WriteLine(distinctedDs.Count());
+        }
+
+        public void CardGameForTwo()
+        {
+            int N = int.Parse(Console.ReadLine());
+            List<int> cards = new List<int>();
+            for(int i = 0; i < N; i++)
+            {
+                cards.Add(int.Parse(Console.ReadLine()));
+            }
+
+            cards.Sort();
+            int Alice = 0;
+            int Bob = 0;
+            foreach(var card in cards.Select((v, i) => new { Value = v, Index = i}))
+            {
+                if(card.Index % 2 != 0)
+                {
+                    Alice += card.Value;
+                }
+                else
+                {
+                    Bob += card.Value;
+                }
+            }
+
+            Console.WriteLine(Alice-Bob);
         }
 
     }
