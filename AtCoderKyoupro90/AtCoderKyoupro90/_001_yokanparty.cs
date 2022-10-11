@@ -10,7 +10,7 @@ namespace AtCoderKyoupro90
     /// Yokan party
     /// written by komori
     /// </summary>
-    class yokanparty
+    class _001_yokanparty
     {
         public void Run()
         {

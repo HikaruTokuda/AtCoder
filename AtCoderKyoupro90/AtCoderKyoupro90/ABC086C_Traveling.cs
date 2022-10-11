@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtCoderKyoupro90
 {
-    class Traveling
+    class ABC086C_Traveling
     {
         public void Run()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtCoderKyoupro90
 {
-    class RestrictedDigits
+    class _005_RestrictedDigits
     {
         public void Run()
         {

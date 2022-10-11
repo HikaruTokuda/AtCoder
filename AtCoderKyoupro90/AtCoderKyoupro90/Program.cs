@@ -6,7 +6,7 @@ namespace AtCoderKyoupro90
     {
         static void Main(string[] args)
         {
-            var current = new RestrictedDigits();
+            var current = new _005_RestrictedDigits();
             current.Run();
             Console.ReadKey();
         }

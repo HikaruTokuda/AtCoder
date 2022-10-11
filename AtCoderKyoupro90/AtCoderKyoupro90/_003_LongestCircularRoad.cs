@@ -16,7 +16,7 @@ namespace AtCoderKyoupro90
         public List<int> destinations = new List<int>();
     }
 
-    class LongestCircularRoad
+    class _003_LongestCircularRoad
     {
         List<VertexModel> vartexes = new List<VertexModel>();       // 頂点の情報
         List<List<int>> pathList = new List<List<int>>();           // ある頂点からたどり着けるグラフの終端

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtCoderKyoupro90
 {
-    class CrossSum
+    class _004_CrossSum
     {
         public void Run()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtCoderKyoupro90
 {
-    class Kagamimochi
+    class ABC085B_Kagamimochi
     {
         public void Run()
         {
