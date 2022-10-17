@@ -6,8 +6,8 @@ namespace AtCoderKyoupro90
     {
         static void Main(string[] args)
         {
-            var current = new ABC049C_Daydream();
-            current.RunOtoshidama();
+            var current = new _006_SmallestSubsequence();
+            current.Run();
             Console.ReadKey();
         }
     }

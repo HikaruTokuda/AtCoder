@@ -1,59 +1,53 @@
 ﻿#include <iostream>
-#include <vector>
-#include <stack>
-#include <queue>
+#include <stdio.h>
 using namespace std;
 
-// 入力
-int N;
-int A[1 << 18], B[1 << 18];
+string S;
+int N, K;
+int nex[100009][26];
 
-// グラフ
-const int INF = (1 << 29);
-vector<int> G[1 << 18];
-int dist[1 << 18];
+int main() {
+	// Step #1. 入力
+	cin >> S;
+	cin >> K;
+	
 
-void getdist(int start) {
-	// 幅優先探索（BFS）により、最短距離を計算
-	for (int i = 1; i <= N; i++) dist[i] = INF;
-
-	queue<int> Q;
-	Q.push(start);
-	dist[start] = 0;
-
-	while (!Q.empty()) {
-		int pos = Q.front(); Q.pop();
-		for (int to : G[pos]) {
-			if (dist[to] == INF) {
-				dist[to] = dist[pos] + 1;
-				Q.push(to);
+	// Step #2. 前計算
+	for (int i = 0; i < 26; i++) nex[S.size()][i] = S.size();
+	for (int i = (int)S.size() - 1; i >= 0; i--) {
+		for (int j = 0; j < 26; j++) {
+			if ((int)(S[i] - 'a') == j) {
+				nex[i][j] = i;
+			}
+			else {
+				nex[i][j] = nex[i + 1][j];
 			}
 		}
 	}
-}
 
-int main()
-{
-    int N;
-    cin >> N;
-    vector<int> X(N), L(N);
-    for (int i = 0; i < N; i++) {
-        cin >> X.at(i) >> L.at(i);
-    }
-    vector<pair<int, int>> p(N);
-    for (int i = 0; i < N; i++) {
-        p[i].first = X[i] + L[i]; // 終端を先に入れておく
-        p[i].second = X[i] - L[i];
-    }
-    sort(p.begin(), p.end()); // 終端を優先にソート
-    int ans = 1;
-    int t = p[0].first; // t:=現在までに選択した区間の中で一番後ろの点
-    for (int i = 1; i < N; i++) {
-        if (t <= p[i].second) {
-            ans++;
-            t = p[i].first;
-        }
-    }
-    cout << ans << endl;
-    return 0;
+	// Step #3. 一文字ずつ貪欲に決める
+	string Answer = "";
+	int CurrentPos = 0;
+	for (int i = 1; i <= K; i++) {
+		for (int j = 0; j < 26; j++) {
+			int NexPos = nex[CurrentPos][j];
+			int MaxPossibleLength = (int)(S.size() - NexPos - 1) + i;
+			if (MaxPossibleLength >= K) {
+				Answer += (char)('a' + j);
+				CurrentPos = NexPos + 1;
+				break;
+			}
+		}
+	}
+
+	// Step #4. 出力
+	for (int i = 0; i < S.length(); i++)
+	{
+		for (int j = 0; j < 26; j++)
+		{
+			printf("nex[%d][%c] = %d\n", i, 'a' + j, nex[i][j]);
+		}
+	}
+	cout << Answer << endl;
+	return 0;
 }
