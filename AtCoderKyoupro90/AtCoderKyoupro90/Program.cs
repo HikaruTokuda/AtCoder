@@ -6,8 +6,14 @@ namespace AtCoderKyoupro90
     {
         static void Main(string[] args)
         {
-            var current = new _006_SmallestSubsequence();
-            current.Run();
+            var current = new _084_ThereAreTwoTypesOfCharacters();
+            while(true)
+            {
+                current.Run();
+                Console.WriteLine("Continue?(y/n)");
+                if (Console.ReadLine() == "n") break;
+            }
+            
             Console.ReadKey();
         }
     }
