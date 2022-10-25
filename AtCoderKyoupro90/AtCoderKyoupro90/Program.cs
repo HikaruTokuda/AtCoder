@@ -19,5 +19,6 @@ namespace AtCoderKyoupro90
                 if (Console.ReadLine() == "n") break;
             }
         }
+
     }
 }
