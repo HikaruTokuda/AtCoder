@@ -1,53 +1,32 @@
 ﻿#include <iostream>
 #include <stdio.h>
+#include <vector>
 using namespace std;
 
+long long N;
 string S;
-int N, K;
-int nex[100009][26];
+vector<pair<char, long long>> vec;
 
 int main() {
-	// Step #1. 入力
-	cin >> S;
-	cin >> K;
-	
+	cin >> N >> S;
 
-	// Step #2. 前計算
-	for (int i = 0; i < 26; i++) nex[S.size()][i] = S.size();
-	for (int i = (int)S.size() - 1; i >= 0; i--) {
-		for (int j = 0; j < 26; j++) {
-			if ((int)(S[i] - 'a') == j) {
-				nex[i][j] = i;
-			}
-			else {
-				nex[i][j] = nex[i + 1][j];
-			}
+	// ランレングス圧縮
+	long long cnt = 0;
+	for (int i = 0; i < S.size(); i++) {
+		cnt++;
+		// 右隣の文字が違ったら追加
+		if (i == (int)S.size() - 1 || S[i] != S[i + 1]) {
+			vec.push_back(make_pair(S[i], cnt));
+			cnt = 0;
 		}
 	}
 
-	// Step #3. 一文字ずつ貪欲に決める
-	string Answer = "";
-	int CurrentPos = 0;
-	for (int i = 1; i <= K; i++) {
-		for (int j = 0; j < 26; j++) {
-			int NexPos = nex[CurrentPos][j];
-			int MaxPossibleLength = (int)(S.size() - NexPos - 1) + i;
-			if (MaxPossibleLength >= K) {
-				Answer += (char)('a' + j);
-				CurrentPos = NexPos + 1;
-				break;
-			}
-		}
+	// oだけ or xだけは１つのpair内の組み合わせの個数になる
+	long long ret = 0;
+	for (int i = 0; i < vec.size(); i++) {
+		ret += 1LL * vec[i].second * (vec[i].second + 1LL) / 2LL;
 	}
-
-	// Step #4. 出力
-	for (int i = 0; i < S.length(); i++)
-	{
-		for (int j = 0; j < 26; j++)
-		{
-			printf("nex[%d][%c] = %d\n", i, 'a' + j, nex[i][j]);
-		}
-	}
-	cout << Answer << endl;
+	// 全pairのpair内組み合わせの個数が出きったら、全体から引く
+	cout << N * (N + 1) / 2LL - ret << endl;
 	return 0;
 }
