@@ -11,7 +11,7 @@ namespace AtCoderKyoupro90
             {
                 var sw = new System.Diagnostics.Stopwatch();
                 sw.Start();
-                current.Run();
+                current.Run_origin();
                 sw.Stop();
                 TimeSpan ts = sw.Elapsed;
                 Console.WriteLine($"Time span: {ts.Milliseconds}ms");

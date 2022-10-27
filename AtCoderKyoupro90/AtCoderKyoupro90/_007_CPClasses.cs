@@ -26,25 +26,27 @@ namespace AtCoderKyoupro90
 
             foreach(var b in B)
             {
-                var upperOneRank = A.Where(a => a > b).ToList();
-                var lowerOneRank = A.Where(a => a < b).ToList();
-                if(upperOneRank.Count == 0) 
+                var upperOneRank = A.Where(a => a > b).ToList().First();
+                if (A.IndexOf(upperOneRank) == 0)
                 {
-                    Console.WriteLine(Math.Abs(lowerOneRank.First() - b));
+                    Console.WriteLine(Math.Abs(upperOneRank - b));
                     continue;
                 }
-                if(lowerOneRank.Count == 0)
+
+                var lowerOneRank = A[A.IndexOf(upperOneRank) - 1];
+                if(A.IndexOf(lowerOneRank) + 1 == A.Count) 
                 {
-                    Console.WriteLine(Math.Abs(upperOneRank.First() - b));
+                    Console.WriteLine(Math.Abs(lowerOneRank - b));
                     continue;
                 }
-                if (Math.Abs(upperOneRank.First() - b) > Math.Abs(lowerOneRank.First() - b))
+
+                if (Math.Abs(upperOneRank - b) > Math.Abs(lowerOneRank - b))
                 {
-                    Console.WriteLine(Math.Abs(lowerOneRank.First() - b));
+                    Console.WriteLine(Math.Abs(lowerOneRank - b));
                 }
                 else
                 {
-                    Console.WriteLine(Math.Abs(upperOneRank.First() - b));
+                    Console.WriteLine(Math.Abs(upperOneRank - b));
                 }
             }
         }
