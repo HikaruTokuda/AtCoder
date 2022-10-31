@@ -11,14 +11,11 @@ namespace AtCoderKyoupro90
         public void Run()
         {
             int N = int.Parse(Console.ReadLine());
-            // 累積和用の配列(在籍人数+初期値)
+            // 累積和用の配列(在籍人数+初期値) 2クラス分作成
             int[] sum1 = new int[N + 1];
             int[] sum2 = new int[N + 1];
-            // 初期値設定
-            //sum1[0] = 0;
-            //sum2[0] = 0;
 
-            // 質問Qの前処理
+            // 質問Qの前処理(累積和の計算)
             for (int i = 1; i <= N; i++)
             {
                 string[] data1 = Console.ReadLine().Split(" ");
